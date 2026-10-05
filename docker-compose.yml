@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://netsentinel:netsentinel@db:5432/netsentinel
+      SECRET_KEY: local-development-secret
+    depends_on:
+      db: {condition: service_healthy}
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: netsentinel
+      POSTGRES_USER: netsentinel
+      POSTGRES_PASSWORD: netsentinel
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netsentinel -d netsentinel"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes: [pgdata:/var/lib/postgresql/data]
+volumes:
+  pgdata:
