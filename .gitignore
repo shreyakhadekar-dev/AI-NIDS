@@ -6,5 +6,6 @@ __pycache__/
 models/*.joblib
 uploads/*
 !uploads/.gitkeep
+!uploads/demo_syn_flood.pcap
 reports/*
 !reports/.gitkeep

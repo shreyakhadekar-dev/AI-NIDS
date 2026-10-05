@@ -14,7 +14,13 @@ from .ml import model
 from .network import parse_pcap,classify_flow
 from .cn_lab import OSI,subnet,routing_demo,congestion,performance
 from .reports import build_report
-Path(settings.upload_dir).mkdir(exist_ok=True); Path(settings.report_dir).mkdir(exist_ok=True); Base.metadata.create_all(bind=engine)
+BASE_DIR = Path(__file__).resolve().parent.parent
+upload_path = BASE_DIR / settings.upload_dir
+report_path = BASE_DIR / settings.report_dir
+frontend_path = BASE_DIR / "frontend"
+upload_path.mkdir(parents=True, exist_ok=True)
+report_path.mkdir(parents=True, exist_ok=True)
+Base.metadata.create_all(bind=engine)
 app=FastAPI(title=settings.app_name,version="2.0.0"); app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
 class Hub:
  def __init__(self): self.clients=set()
@@ -73,7 +79,7 @@ async def pcap(file:UploadFile=File(...),db:Session=Depends(get_db)):
  if not name.endswith((".pcap",".pcapng")): raise HTTPException(400,"Only .pcap or .pcapng files are allowed")
  data=await file.read()
  if len(data)>settings.max_upload_mb*1024*1024: raise HTTPException(413,"PCAP too large")
- path=Path(settings.upload_dir)/(uuid.uuid4().hex+"_"+Path(file.filename).name);path.write_bytes(data)
+ path=upload_path/(uuid.uuid4().hex+"_"+Path(file.filename).name);path.write_bytes(data)
  parsed=parse_pcap(str(path)); results=[]
  for f in parsed:
   label,score,sev,exp,m=persist(f,db);results.append({"flow":f,"classification":label,"threat_score":score,"severity":sev,"explanation":exp})
@@ -94,13 +100,13 @@ def perf(size_mb=10,bandwidth_mbps=100,rtt_ms=20):return performance(float(size_
 def protocols():return [{"name":"TCP","layer":4,"purpose":"Reliable transport","key":"SYN/SYN-ACK/ACK/FIN/RST"},{"name":"UDP","layer":4,"purpose":"Connectionless transport","key":"Low overhead"},{"name":"IP","layer":3,"purpose":"Addressing/routing","key":"IPv4/IPv6"},{"name":"ICMP","layer":3,"purpose":"Diagnostics","key":"Echo request/reply"},{"name":"ARP","layer":2,"purpose":"IPv4-to-MAC resolution","key":"Request/reply"},{"name":"DNS","layer":7,"purpose":"Name resolution","key":"Query/response"},{"name":"DHCP","layer":7,"purpose":"Dynamic configuration","key":"Discover/Offer/Request/Ack"}]
 @app.get("/api/report")
 def report(db:Session=Depends(get_db)):
- d=db.query(Detection).order_by(Detection.id.desc()).limit(200).all(); path=Path(settings.report_dir)/"netsentinel-report.pdf";build_report(path,{"flows":db.query(Flow).count(),"detections":len(d),"critical":sum(x.severity=="critical" for x in d)},d);return FileResponse(path,media_type="application/pdf",filename="netsentinel-report.pdf")
+ d=db.query(Detection).order_by(Detection.id.desc()).limit(200).all(); path=report_path/"netsentinel-report.pdf";build_report(path,{"flows":db.query(Flow).count(),"detections":len(d),"critical":sum(x.severity=="critical" for x in d)},d);return FileResponse(path,media_type="application/pdf",filename="netsentinel-report.pdf")
 @app.websocket("/ws/alerts")
 async def alerts(ws:WebSocket):
  await ws.accept();hub.clients.add(ws)
  try:
   while True: await ws.receive_text()
  except WebSocketDisconnect: hub.clients.discard(ws)
-frontend=Path("frontend");app.mount("/assets",StaticFiles(directory=frontend),name="assets")
+app.mount("/assets",StaticFiles(directory=str(frontend_path)),name="assets")
 @app.get("/")
-def root():return FileResponse(frontend/"index.html")
+def root():return FileResponse(str(frontend_path/"index.html"))

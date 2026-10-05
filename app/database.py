@@ -1,9 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 from .config import settings
-url=settings.database_url
-connect_args={"check_same_thread":False} if url.startswith("sqlite") else {}
-engine=create_engine(url,connect_args=connect_args,pool_pre_ping=True)
+raw_url = settings.database_url
+if raw_url.startswith("postgres://"):
+    url = raw_url.replace("postgres://", "postgresql+psycopg://", 1)
+elif raw_url.startswith("postgresql://") and not raw_url.startswith("postgresql+"):
+    url = raw_url.replace("postgresql://", "postgresql+psycopg://", 1)
+else:
+    url = raw_url
+connect_args = {"check_same_thread": False} if url.startswith("sqlite") else {}
+engine = create_engine(url, connect_args=connect_args, pool_pre_ping=True)
 SessionLocal=sessionmaker(bind=engine,autoflush=False,autocommit=False)
 class Base(DeclarativeBase): pass
 def get_db():
