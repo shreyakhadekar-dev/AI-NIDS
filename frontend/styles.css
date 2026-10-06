@@ -1,160 +1,96 @@
-  font-weight:950;
+
+/* =========================================================
+   NETSENTINEL AI PRO — PREMIUM SOC / CYBERSECURITY UI
+   Pure CSS • Render friendly • No external dependencies
+   Drop-in replacement for frontend/styles.css
+   ========================================================= */
+
+:root{
+  --bg:#030712;
+  --bg-2:#07111f;
+  --sidebar:#050b15;
+  --panel:rgba(10,20,35,.82);
+  --panel-2:rgba(14,27,45,.92);
+  --panel-3:#0b1728;
+  --line:rgba(105,150,190,.16);
+  --line-strong:rgba(86,215,255,.30);
+
+  --text:#eef7ff;
+  --text-2:#c7d7e6;
+  --muted:#7e94aa;
+  --muted-2:#52687c;
+
+  --cyan:#56d7ff;
+  --cyan-2:#17bfff;
+  --blue:#6ea8ff;
+  --violet:#9b7cff;
+  --green:#55e6a5;
+  --yellow:#ffd166;
+  --orange:#ff9f5a;
+  --red:#ff5f73;
+  --pink:#ff6bcf;
+
+  --shadow:0 18px 55px rgba(0,0,0,.38);
+  --shadow-soft:0 10px 30px rgba(0,0,0,.25);
+  --glow:0 0 35px rgba(86,215,255,.12);
+
+  --radius:16px;
+  --radius-sm:10px;
+  --sidebar-width:260px;
+  --transition:180ms ease;
 }
 
-.brand b{
-  color:var(--cyan);
-  text-shadow:0 0 18px rgba(86,215,255,.35);
-}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-.dot{
-  display:inline-block;
-  width:8px;
-  height:8px;
-  margin-right:8px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 0 4px rgba(85,230,165,.08),0 0 18px var(--green);
-  animation:pulse 1.8s infinite;
-}
-
-nav{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-nav:before{
-  content:"SECURITY CONSOLE";
-  padding:8px 12px 7px;
-  color:#486075;
-  font-size:9px;
-  font-weight:850;
-  letter-spacing:1.8px;
-}
-
-nav a{
-  position:relative;
-  display:flex;
-  align-items:center;
-  min-height:43px;
-  padding:10px 13px 10px 15px;
-  border:1px solid transparent;
-  border-radius:11px;
-  color:#8197aa;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:650;
-  transition:all var(--transition);
-}
-
-nav a:before{
-  content:"";
-  width:4px;
-  height:0;
-  margin-right:0;
-  border-radius:99px;
-  background:var(--cyan);
-  box-shadow:0 0 14px var(--cyan);
-  transition:all var(--transition);
-}
-
-nav a:hover{
-  color:#eaf7ff;
-  border-color:rgba(86,215,255,.12);
-  background:linear-gradient(90deg,rgba(86,215,255,.10),rgba(86,215,255,.025));
-  transform:translateX(2px);
-}
-
-nav a.active{
-  color:#fff;
-  border-color:rgba(86,215,255,.20);
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
   background:
-    linear-gradient(90deg,rgba(86,215,255,.15),rgba(86,215,255,.035)),
-    rgba(11,28,45,.7);
-  box-shadow:inset 0 0 22px rgba(86,215,255,.035),0 5px 22px rgba(0,0,0,.14);
+    radial-gradient(circle at 15% 5%,rgba(44,111,168,.18),transparent 30%),
+    radial-gradient(circle at 85% 0%,rgba(105,72,190,.14),transparent 26%),
+    radial-gradient(circle at 70% 80%,rgba(0,176,255,.07),transparent 28%),
+    linear-gradient(135deg,#02060d 0%,#06101d 48%,#030811 100%);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.5;
+  overflow-x:hidden;
 }
 
-nav a.active:before{
-  height:20px;
-  margin-right:10px;
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.035;
+  background-image:
+    linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(to bottom,black,transparent 88%);
 }
 
-.side-note{
-  position:absolute;
-  left:16px;
-  right:16px;
-  bottom:18px;
-  padding:12px 13px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  color:#60778b;
-  background:rgba(7,18,31,.72);
-  font-size:10px;
-  line-height:1.6;
-}
+::selection{background:rgba(86,215,255,.25);color:#fff}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#040a12}
+::-webkit-scrollbar-thumb{background:#1a3850;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:#285b78}
+
+a{color:inherit}
+button,input,select,textarea{font:inherit}
 
 /* =========================
-   MAIN / HEADER
+   APP SHELL
    ========================= */
 
-main{
-  width:calc(100% - var(--sidebar-width));
-  min-width:0;
-  margin-left:var(--sidebar-width);
-  padding:28px 34px 60px;
-}
+.app{display:flex;min-height:100vh}
 
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  margin-bottom:24px;
-}
-
-header h1{
-  margin:0;
-  font-size:28px;
-  line-height:1.15;
-  letter-spacing:-.7px;
-}
-
-header h2,header h3,h1,h2,h3{
-  color:#f4f9ff;
-}
-
-h1,h2,h3{margin-top:0}
-h2{font-size:22px;letter-spacing:-.35px}
-h3{font-size:15px}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  margin-bottom:6px;
-  color:var(--cyan);
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.eyebrow:before{
-  content:"";
-  width:18px;
-  height:1px;
-  background:var(--cyan);
-  box-shadow:0 0 8px var(--cyan);
-}
-
-.live{
-  display:inline-flex;
-  align-items:center;
-  padding:7px 11px;
-  border:1px solid rgba(85,230,165,.20);
-  border-radius:99px;
-  color:#8cf2c1;
-  background:rgba(85,230,165,.06);
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.5px;
+.sidebar{
+  width:var(--sidebar-width);
+  position:fixed;
+  z-index:50;
+  inset:0 auto 0 0;
+  padding:22px 14px 18px;
+  background:
+    linear-gradient(180deg,rgba(5,12,23,.98),rgba(3,9,17,.98)),
+    radial-gradient(circle at 50% 0,rgba(86,215,255,.10),transparent 35%);
