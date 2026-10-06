@@ -1,160 +1,96 @@
-  min-height:100vh;
-  color:var(--text);
-  font:14px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:
-    radial-gradient(circle at 76% 8%,rgba(36,181,255,.13),transparent 25%),
-    radial-gradient(circle at 20% 90%,rgba(100,74,255,.08),transparent 28%),
-    linear-gradient(135deg,#02060b 0%,#06101a 52%,#03070d 100%);
-  overflow-x:hidden;
+/* NETSENTINEL AI PRO — PREMIUM CYBER SOC UI
+   Drop-in replacement for frontend/styles.css
+   No HTML / JS / backend changes required.
+*/
+
+:root{
+  --bg:#030811;
+  --bg2:#07111d;
+  --panel:#0a1725;
+  --panel2:#0d2032;
+  --panel3:#102a40;
+  --line:#17344b;
+  --line2:#24526d;
+  --text:#edf8ff;
+  --muted:#7895aa;
+  --cyan:#55e6ff;
+  --blue:#4b8dff;
+  --green:#54e7a6;
+  --yellow:#ffd166;
+  --red:#ff5874;
+  --purple:#a789ff;
+  --shadow:0 18px 55px rgba(0,0,0,.42);
+  --radius:18px;
 }
 
-/* subtle cyber grid */
+*{box-sizing:border-box}
+html{margin:0;padding:0;min-height:100%;background:#030811;scroll-behavior:smooth}
+body{
+  margin:0!important;padding:0!important;min-height:100vh!important;
+  background:
+    radial-gradient(circle at 82% 10%,rgba(39,198,255,.12),transparent 26%),
+    radial-gradient(circle at 20% 85%,rgba(116,76,255,.08),transparent 25%),
+    linear-gradient(135deg,#02060b,#06111c 52%,#030811)!important;
+  color:var(--text)!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-size:14px;line-height:1.55;overflow-x:hidden;
+}
+
 body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-  opacity:.20;
-  background-image:
-    linear-gradient(rgba(77,231,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(77,231,255,.035) 1px,transparent 1px);
-  background-size:42px 42px;
-  mask-image:linear-gradient(to bottom,black,transparent 90%);
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.25;
+  background-image:linear-gradient(rgba(85,230,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(85,230,255,.035) 1px,transparent 1px);
+  background-size:38px 38px;
 }
-
 body::after{
-  content:"";
-  position:fixed;
-  width:520px;
-  height:520px;
-  right:-220px;
-  top:20%;
-  border-radius:50%;
-  pointer-events:none;
-  background:radial-gradient(circle,rgba(77,231,255,.08),transparent 68%);
-  filter:blur(4px);
-  z-index:-1;
+  content:"";position:fixed;z-index:0;pointer-events:none;right:-180px;top:25%;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(85,230,255,.09),transparent 68%);filter:blur(2px);
 }
 
-/* ========================= APP SHELL ========================= */
+/* ---------- LEFT SOC NAV ---------- */
 header{
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  width:272px;
-  padding:26px 18px;
-  display:flex;
-  flex-direction:column;
-  align-items:stretch;
-  justify-content:flex-start;
-  gap:26px;
-  background:
-    linear-gradient(180deg,rgba(5,14,23,.98),rgba(3,9,16,.98)),
-    radial-gradient(circle at 50% 0%,rgba(77,231,255,.09),transparent 45%);
-  border-right:1px solid rgba(103,180,255,.14);
-  box-shadow:14px 0 50px rgba(0,0,0,.25);
-  z-index:100;
-  backdrop-filter:blur(20px);
+  position:fixed!important;left:0!important;top:0!important;bottom:0!important;width:280px!important;
+  z-index:50;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:24px!important;
+  padding:28px 18px!important;margin:0!important;
+  background:linear-gradient(180deg,#07121e 0%,#040b13 100%)!important;
+  border-right:1px solid rgba(85,230,255,.16)!important;
+  box-shadow:18px 0 60px rgba(0,0,0,.28)!important;
 }
-
 header>div:first-child{
-  position:relative;
-  padding:8px 8px 22px;
-  border-bottom:1px solid rgba(120,190,255,.12);
+  position:relative;padding:5px 9px 23px!important;border-bottom:1px solid rgba(113,176,215,.13)!important;
 }
-
-header>div:first-child::before{
-  content:"";
-  position:absolute;
-  left:8px;
-  bottom:-1px;
-  width:68px;
-  height:2px;
-  background:linear-gradient(90deg,var(--cyan),transparent);
-  box-shadow:0 0 15px var(--cyan);
+header>div:first-child::after{
+  content:"";position:absolute;left:9px;bottom:-1px;width:80px;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);box-shadow:0 0 16px var(--cyan);
 }
-
 header b{
-  display:block;
-  color:#f5fbff;
-  font-size:20px;
-  line-height:1.25;
-  letter-spacing:-.4px;
-  text-shadow:0 0 22px rgba(77,231,255,.16);
+  display:block!important;color:#f4fbff!important;font-size:22px!important;font-weight:800!important;letter-spacing:-.7px!important;line-height:1.2!important;
+  text-shadow:0 0 25px rgba(85,230,255,.16);
 }
+header b::before{content:"●";font-size:9px;color:var(--green);vertical-align:middle;margin-right:9px;text-shadow:0 0 12px var(--green)}
+header small{display:block!important;margin:10px 0 0 18px!important;color:#7895aa!important;font-size:11px!important;line-height:1.6!important}
+header small::after{content:"  •  SOC ONLINE";color:var(--green);font-weight:800;letter-spacing:.7px}
 
-header b::before{
-  content:"●";
-  color:var(--green);
-  font-size:9px;
-  vertical-align:middle;
-  margin-right:8px;
-  text-shadow:0 0 12px var(--green);
+nav{display:flex!important;flex-direction:column!important;gap:10px!important}
+nav::before{content:"SECURITY CONSOLE";padding:0 12px 4px;color:#58758a;font-size:9px;font-weight:900;letter-spacing:2px}
+nav button{
+  position:relative!important;width:100%!important;min-height:52px!important;margin:0!important;padding:0 16px 0 48px!important;
+  border:1px solid #173b55!important;border-radius:15px!important;
+  color:#cfe5f3!important;background:linear-gradient(135deg,#0c2032,#091827)!important;
+  font:700 14px/1 Inter,ui-sans-serif,system-ui,sans-serif!important;text-align:left!important;cursor:pointer!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 24px rgba(0,0,0,.18)!important;
+  transition:.2s ease!important;
 }
-
-header small{
-  display:block;
-  color:var(--muted);
-  margin:8px 0 0 18px;
-  font-size:11px;
-  line-height:1.55;
-  letter-spacing:.25px;
+nav button::after{position:absolute;left:17px;top:50%;transform:translateY(-50%);width:20px;text-align:center;font-size:17px}
+nav button:nth-of-type(1)::after{content:"⌂"}
+nav button:nth-of-type(2)::after{content:"◉"}
+nav button:nth-of-type(3)::after{content:"⌁"}
+nav button:nth-of-type(4)::after{content:"⚠"}
+nav button:hover{
+  transform:translateX(4px)!important;color:#fff!important;border-color:rgba(85,230,255,.55)!important;
+  background:linear-gradient(135deg,#10324b,#0b2236)!important;box-shadow:0 10px 28px rgba(0,0,0,.25),0 0 24px rgba(85,230,255,.09)!important;
 }
-
-header small::after{
-  content:"  •  SOC ONLINE";
-  color:var(--green);
-  font-weight:800;
-  letter-spacing:.7px;
-}
-
-nav{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-nav::before{
-  content:"SECURITY CONSOLE";
-  color:#526c83;
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:1.8px;
-  padding:0 11px 4px;
-}
-
-button,.report{
-  position:relative;
-  appearance:none;
-  border:1px solid rgba(99,179,255,.16);
-  border-radius:12px;
-  padding:11px 14px;
-  margin:0;
-  color:#dcecff;
-  background:linear-gradient(180deg,rgba(18,39,59,.84),rgba(10,25,39,.88));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 8px 24px rgba(0,0,0,.12);
-  cursor:pointer;
-  font:700 12px/1.2 inherit;
-  letter-spacing:.25px;
-  text-decoration:none;
-  transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease,color .18s ease;
-}
-
-button::before,.report::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.08),transparent 80%);
-  transform:translateX(-120%);
-  transition:transform .45s ease;
-  pointer-events:none;
-}
-
-button:hover,.report:hover{
-  transform:translateY(-2px);
-  color:#fff;
-  border-color:rgba(77,231,255,.48);
-  background:linear-gradient(180deg,rgba(18,55,77,.96),rgba(10,30,46,.96));
+nav button:active{transform:scale(.985)!important}
+body:has(#dashboard.active) nav button:nth-of-type(1),
+body:has(#monitor.active) nav button:nth-of-type(2),
+body:has(#cn.active) nav button:nth-of-type(3),
+body:has(#incidents.active) nav button:nth-of-type(4){
+  color:#04121b!important;border-color:var(--cyan)!important;background:linear-gradient(135deg,#55e6ff,#9af4ff)!important;
